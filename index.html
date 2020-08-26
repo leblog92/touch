@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<style>
+html,body{
+height:100%;
+margin:0;
+}
+body{
+font-family:sans-serif;
+font-size:10px;
+overflow:hidden;
+}
+#div1{
+position:absolute;
+top:8px;
+left:10px;
+}
+#div2{
+position:absolute;
+text-align:right;
+top:8px;
+right:10px;
+}
+#div3{
+position:absolute;
+text-align:center;
+bottom:0px;
+left:0px;
+width:100%;
+}
+#svg1{
+width:100%;
+height:100%;
+}
+</style>
+</head>
+<body>
+<svg id="svg1">
+<path d="m0 0L0 0" stroke="#000" stroke-width="5px" fill="none" id="p1" opacity="0.25"></path>
+<circle cx="0" cy="0" r="0" id="c1" fill="#000" opacity="0.5"></circle>
+
+<path d="m0 0L0 0" stroke="#000" stroke-width="5px" fill="none" id="p2" opacity="0.25"></path>
+<circle cx="0" cy="0" r="0" id="c2" fill="#000" opacity="0.5"></circle>
+</svg>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<script>
+var ww=window.innerWidth;
+var wh=window.innerHeight;
+var ox=Math.ceil(ww/2);
+var oy=Math.ceil(wh/2);
+var dx=Math.ceil(Math.random()*ww);
+var dy=Math.ceil(Math.random()*wh);
+var svg1=document.getElementById("svg1");
+var div1=document.getElementById("div1");
+var c1=document.getElementById("c1");
+var p1=document.getElementById("p1");
+var ix=Math.abs(ox-dx);
+var iy=Math.abs(oy-dy);
+var stx=1;
+var sty=1;
+var coll=0;
+
+var ox2=Math.ceil(ww/2);
+var oy2=Math.ceil(wh/2);
+var dx2=Math.ceil(Math.random()*ww);
+var dy2=Math.ceil(Math.random()*wh);
+var div2=document.getElementById("div2");
+var c2=document.getElementById("c2");
+var p2=document.getElementById("p2");
+var ix2=Math.abs(ox2-dx2);
+var iy2=Math.abs(oy2-dy2);
+var stx2=1;
+var sty2=1;
+
+var div3=document.getElementById("div3");
+
+var dxx;
+var dyy;
+var distance;
+//var r1=Math.ceil(Math.random()*100)+100;
+//var r2=Math.ceil(Math.random()*100)+100;
+var r1=50;
+var r2=50;
+
+
+p1.setAttribute("d","m"+ox+" "+oy+"L"+dx+" "+dy);
+c1.setAttribute("cx",ox);c1.setAttribute("cy",oy);
+c1.setAttribute("r",r1+"px");
+
+p2.setAttribute("d","m"+ox2+" "+oy2+"L"+dx2+" "+dy2);
+c2.setAttribute("cx",ox2);c1.setAttribute("cy",oy2);
+c2.setAttribute("r",r2+"px");
+
+if(ix>iy){stx=1;sty=Math.ceil((1/(ix/iy))*1000)/1000;};
+if(ix<iy){stx=Math.ceil((1/(iy/ix))*1000)/1000;sty=1;};
+
+if(ix2>iy2){stx2=1;sty2=Math.ceil((1/(ix2/iy2))*1000)/1000;};
+if(ix2<iy2){stx2=Math.ceil((1/(iy2/ix2))*1000)/1000;sty=1;};
+
+function bouge(){
+if(ox<=dx){ox=ox+stx;};
+if(ox>=dx){ox=ox-stx;};
+if(oy<=dy){oy=oy+sty;};
+if(oy>=dy){oy=oy-sty;};
+c1.setAttribute("cx",ox);c1.setAttribute("cy",oy);
+div1.innerHTML="cx: "+Math.ceil(ox)+"<br>cy: "+Math.ceil(oy)+"<br>dx: "+dx+"<br>dy: "+dy+"<br>x+"+stx+"<br>y+"+sty+"<br>r: "+Math.ceil(r1)+"<"+Math.ceil(ww/2);
+if(Math.ceil(ox)==Math.ceil(dx)||Math.ceil(oy)==Math.ceil(dy)){
+ox=Math.ceil(ox);oy=Math.ceil(oy);
+dx=Math.ceil(Math.random()*ww);
+dy=Math.ceil(Math.random()*wh);
+p1.setAttribute("d","m"+ox+" "+oy+"L"+dx+" "+dy);
+ix=Math.ceil(Math.abs(ox-dx));
+iy=Math.ceil(Math.abs(oy-dy));
+if(ix>iy){stx=1;sty=Math.ceil((1/(ix/iy))*1000)/1000;};
+if(ix<iy){stx=Math.ceil((1/(iy/ix))*1000)/1000;sty=1;};
+}}
+
+function bouge2(){
+if(ox2<=dx2){ox2=ox2+stx2;};
+if(ox2>=dx2){ox2=ox2-stx2;};
+if(oy2<=dy2){oy2=oy2+sty2;};
+if(oy2>=dy2){oy2=oy2-sty2;};
+c2.setAttribute("cx",ox2);c2.setAttribute("cy",oy2);
+div2.innerHTML="cx: "+Math.ceil(ox2)+"<br>cy: "+Math.ceil(oy2)+"<br>dx: "+dx2+"<br>dy: "+dy2+"<br>x+"+stx2+"<br>y+"+sty2+"<br>r: "+Math.ceil(r2)+"<"+Math.ceil(ww/2);
+if(Math.ceil(ox2)==Math.ceil(dx2)||Math.ceil(oy2)==Math.ceil(dy2)){
+ox2=Math.ceil(ox2);oy2=Math.ceil(oy2);
+dx2=Math.ceil(Math.random()*ww);
+dy2=Math.ceil(Math.random()*wh);
+p2.setAttribute("d","m"+ox2+" "+oy2+"L"+dx2+" "+dy2);
+ix2=Math.ceil(Math.abs(ox2-dx2));
+iy2=Math.ceil(Math.abs(oy2-dy2));
+if(ix2>iy2){stx2=1;sty2=Math.ceil((1/(ix2/iy2))*1000)/1000;};
+if(ix2<iy2){stx2=Math.ceil((1/(iy2/ix2))*1000)/1000;sty2=1;};
+}}
+
+function detectColl(){
+dxx=ox-ox2;
+dyy=oy-oy2;
+distance=Math.sqrt(dxx*dxx+dyy*dyy);
+if(distance<(r1+r2)){
+c1.setAttribute("fill","#f00");c2.setAttribute("fill","#f00");
+coll++;
+r1=r1+0.08;
+c1.setAttribute("r",r1+"px");
+r2=r2+0.08;
+c2.setAttribute("r",r2+"px");
+div3.innerHTML=coll;
+if(r1>ww/2||r2>ww/2){
+r1=50;
+c1.setAttribute("r",r1+"px");
+r2=50
+c2.setAttribute("r",r2+"px");
+};
+}else{
+c1.setAttribute("fill","#000");c2.setAttribute("fill","#000");
+}}
+
+setInterval(bouge,1);
+setInterval(bouge2,1);
+setInterval(detectColl,1);
+</script>
+
+</body></html>
